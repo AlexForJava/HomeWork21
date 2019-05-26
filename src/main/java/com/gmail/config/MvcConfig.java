@@ -1,6 +1,7 @@
 package com.gmail.config;
 
 import com.gmail.interceptors.UserInterceptor;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -20,12 +21,10 @@ import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 @EnableWebMvc
 @Import(JavaConfig.class)
 @ComponentScan(basePackages = "com.gmail")
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class MvcConfig implements WebMvcConfigurer {
-    @Autowired
-    private ApplicationContext applicationContext;
-
-    @Autowired
-    private UserInterceptor userInterceptor;
+    private final ApplicationContext applicationContext;
+    private final UserInterceptor userInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {

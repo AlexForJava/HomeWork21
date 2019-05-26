@@ -12,7 +12,6 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.sql.DataSource;
 
@@ -32,7 +31,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(passwordEncoder)
                 .usersByUsernameQuery(environment.getProperty("users.query"))
                 .authoritiesByUsernameQuery(environment.getProperty("authority.query"));
-        auth.inMemoryAuthentication().withUser("user").password("1234").roles("ADMIN");
     }
 
 

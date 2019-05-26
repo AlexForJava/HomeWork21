@@ -1,8 +1,10 @@
 package com.gmail.service;
 
 import com.gmail.entity.UserEntity;
+import com.gmail.exceptions.UserNotFoundEception;
 import com.gmail.repository.UserRepository;
-import lombok.AllArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -11,10 +13,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@AllArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public void create(User user) {
@@ -22,13 +24,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void update(User user) {
+    public void update(User user) throws UserNotFoundEception {
         userRepository.save(updateEntity(user));
     }
 
     @Override
-    public User getById(Long id) {
-        return buildUser(userRepository.findById(id).orElseThrow(NullPointerException::new));
+    public User getById(Long id) throws UserNotFoundEception {
+        return buildUser(userRepository.findById(id).orElseThrow(UserNotFoundEception::new));
     }
 
     @Override
@@ -49,10 +51,10 @@ public class UserServiceImpl implements UserService {
                 .collect(Collectors.toList());
     }
 
-    private UserEntity buildEntity(User user) {
+    private UserEntity buildEntity(@NonNull User user) {
         return new UserEntity()
                 .setEmail(user.getEmail())
-                .setUserPassword(user.getPassword())
+                .setUserPassword(passwordEncoder.encode(user.getPassword()))
                 .setUserName(user.getUserName());
     }
 
@@ -64,8 +66,8 @@ public class UserServiceImpl implements UserService {
                 .setRole(userEntity.getUserRole());
     }
 
-    private UserEntity updateEntity(User user) {
-        return userRepository.findById(user.getId()).get()
+    private UserEntity updateEntity(User user) throws UserNotFoundEception {
+        return userRepository.findById(user.getId()).orElseThrow(UserNotFoundEception::new)
                 .setUserName(user.getUserName())
                 .setEmail(user.getEmail())
                 .setUserRole(user.getRole());

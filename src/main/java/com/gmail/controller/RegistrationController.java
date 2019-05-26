@@ -5,6 +5,7 @@ import com.gmail.service.User;
 import com.gmail.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -31,7 +32,7 @@ public class RegistrationController {
     }
 
     @PostMapping
-    public String createNewUser(@ModelAttribute("user") User user) {
+    public String createNewUser(@ModelAttribute("user")@NonNull User user) {
         userService.create(user);
         return "login";
     }
