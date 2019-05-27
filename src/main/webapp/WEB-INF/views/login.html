@@ -9,9 +9,9 @@
 <body>
 <div class="login-page">
     <div class="form">
-        <form action="/j_spring_security_check" method="post">
-            <input type="text" name="j_username" placeholder="username"/>
-            <input type="password" name="j_password" placeholder="password"/>
+        <form th:action="/j_spring_security_check" method="post">
+            <input type="text" name="j_username" th:id="j_username" placeholder="username"/>
+            <input type="password" name="j_password" th:id="j_password" placeholder="password"/>
             <button type="submit">Login</button>
         </form>
     </div>

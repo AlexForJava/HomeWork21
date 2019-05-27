@@ -20,10 +20,9 @@ import javax.sql.DataSource;
 @Import(JavaConfig.class)
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private DataSource dataSource;
-    private PasswordEncoder passwordEncoder;
-    private Environment environment;
-
+    private final DataSource dataSource;
+    private final PasswordEncoder passwordEncoder;
+    private final Environment environment;
 
     @Autowired
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

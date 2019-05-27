@@ -1,6 +1,5 @@
 package com.gmail.controller;
 
-
 import com.gmail.service.User;
 import com.gmail.service.UserService;
 import lombok.AllArgsConstructor;

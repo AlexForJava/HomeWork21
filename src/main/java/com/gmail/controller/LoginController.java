@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 public class LoginController {
+
     @GetMapping(value = {"/", "/login"})
     public ModelAndView login() {
         ModelAndView modelAndView = new ModelAndView();
