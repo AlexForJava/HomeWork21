@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Result</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div class="container">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td><span th:text="${user.id}">Id</span></td>
+            <td><span th:text="${user.name}">Name</span></td>
+            <td><span th:text="${user.email}">email</span></td>
+        </tr>
+        </tbody>
+    </table>
+    <form th:action="@{/logout}" method="get">
+        <br/>
+        <button class="button" name="login" type="Submit">Logout</button>
+    </form>
+</div>
+</body>
+</html>
